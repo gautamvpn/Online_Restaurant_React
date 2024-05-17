@@ -2,6 +2,7 @@ import ResturantCard from "./ResturantCard";
 import { resObj } from "../utils/mockData";
 import { useEffect, useState } from "react";
 import ShimarUI from "./ShimarUI";
+import { Link } from "react-router-dom";
 const Body = () => {
     let [listOfResturants, setListOfResturants] = useState([]);
     const [filteredResturants, setOfFilteredResturants] = useState([]);
@@ -63,13 +64,14 @@ const Body = () => {
             <div className="res-container">
                 {/* {listOfResturants.map((Resturant)=> <ResturantCard key={Resturant.info.id} resData={Resturant}/> ) } */}
                 {filteredResturants.map((Resturant) => {
-                    if (Resturant.card && Resturant.card.card.info) {
+                    if (Resturant?.card && Resturant?.card?.card?.info) {
                         {/* console.log(Resturant.card.card); // Log the card object */ }
                         return (
-                            <ResturantCard
-                                key={Resturant.card.card.info.id}
-                                resData={Resturant.card.card}
+                           <Link  key={Resturant?.card?.card?.info?.id} to={"/restaurants/"+Resturant?.card?.card?.info?.id}> <ResturantCard
+                               
+                                resData={Resturant?.card?.card}
                             />
+                            </Link>
                         );
                     }
                     return null; // Optionally handle the case where card or card.card is undefined
