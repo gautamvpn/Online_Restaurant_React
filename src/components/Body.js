@@ -3,6 +3,7 @@ import { resObj } from "../utils/mockData";
 import { useEffect, useState } from "react";
 import ShimarUI from "./ShimarUI";
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
 const Body = () => {
     let [listOfResturants, setListOfResturants] = useState([]);
     const [filteredResturants, setOfFilteredResturants] = useState([]);
@@ -23,6 +24,11 @@ const Body = () => {
         setOfFilteredResturants(json?.data?.cards)
     }
 
+    const onlineStatus = useOnlineStatus()
+
+    if(onlineStatus === false)  return(
+        <div> <h2>Opss!! Please check your internet connection, and try again.</h2></div>
+    )
 
 
     return listOfResturants.length == 0 ? <ShimarUI /> : (

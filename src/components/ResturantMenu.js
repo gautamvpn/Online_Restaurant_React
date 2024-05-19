@@ -1,32 +1,34 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import { Rating_icon } from "../utils/constant";
 import ShimarUI from "./ShimarUI";
 import { useParams } from "react-router-dom";
-import { resourceUsage } from "process";
+import useResturantMenu from "../utils/useResturantMenu";
 const ResturantMenu = () => {
 
     const resId = useParams()
     const restaurant =resId;
     const resID = restaurant.resId
     
-    const [resInfo, setResInfo] = useState(null);
+    // const [resInfo, setResInfo] = useState(null);
+
+    const resInfo = useResturantMenu(resID)
     
-    useEffect(() => {
-        fetchMenu();
-    }, []);
+    // useEffect(() => {
+    //     fetchMenu();
+    // }, []);
     
-    const fetchMenu = async () => {
-       console.log(resID)
+    // const fetchMenu = async () => {
+    //    console.log(resID)
 
-        const url = `https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=25.34808912&lng=81.7789865&restaurantId=${resID}
-        &catalog_qa=undefined&query=Sandwich&submitAction=ENTER`
+    //     const url = `https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=25.34808912&lng=81.7789865&restaurantId=${resID}
+    //     &catalog_qa=undefined&query=Sandwich&submitAction=ENTER`
 
-        const data = await fetch(url)
+    //     const data = await fetch(url)
 
-        const json = await data.json();
-        setResInfo(json.data)
-        console.log(json.data)
-    }
+    //     const json = await data.json();
+    //     setResInfo(json.data)
+    //     console.log(json.data)
+    // }
 
       if(resInfo == null)
         {
