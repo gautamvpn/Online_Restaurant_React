@@ -19,7 +19,7 @@ const Body = () => {
 
         const json = await data.json();
         // console.log(json)
-        // console.log(json.data.cards[3].card.card.info.id)
+        console.log(json.data.cards)
         setListOfResturants(json?.data?.cards)
         setOfFilteredResturants(json?.data?.cards)
     }
@@ -33,19 +33,19 @@ const Body = () => {
 
     return listOfResturants.length == 0 ? <ShimarUI /> : (
         <div className="body">
-            <div className="filter">
+            <div className="filter flex ">
 
-                <div className="search">
-                    <input type="text" className="search-box" value={searchText} onChange={(e)=> setSearchText(e.target.value)} />
-                    <button onClick={()=>{
+                <div className="m-4 p-4">
+                    <input type="text" className="border border-solid border-black" value={searchText} onChange={(e)=> setSearchText(e.target.value)} />
+                    <button className="px-4 py-1 m-4 bg-green-100 rounded-lg" onClick={()=>{
                        const filteredList =  listOfResturants.filter((res)=>{
                           return res?.card?.card?.info?.name.toLowerCase().includes(searchText.toLowerCase())
                         })
                         setOfFilteredResturants(filteredList)
                     }}>search</button>
                 </div>
-
-                <button className='res-btn' onClick={() => {
+                <div className="m-4 p-4 flex items-center">
+                <button className='px-4 py-1 bg-gray-100 rounded-lg' onClick={() => {
                     // listOfResturants = listOfResturants.filter((res) =>  res.card.card.info.avgRating > 4.4)
 
                      listOfResturants = listOfResturants.filter((res) => {
@@ -66,8 +66,9 @@ const Body = () => {
                 }}>
                     Top Rated Resturants
                 </button>
+                </div>
             </div>
-            <div className="res-container">
+            <div className="flex flex-wrap">
                 {/* {listOfResturants.map((Resturant)=> <ResturantCard key={Resturant.info.id} resData={Resturant}/> ) } */}
                 {filteredResturants.map((Resturant) => {
                     if (Resturant?.card && Resturant?.card?.card?.info) {

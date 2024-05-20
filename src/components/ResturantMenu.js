@@ -41,13 +41,14 @@ const ResturantMenu = () => {
     const { itemCards } = resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card || {};
     // console.log(itemCards[0].card.info.name)
     return (
-        <div>
-            <h1>{name}</h1>
-            <p>{cuisines?.join(', ')}</p>
-            <h3> <img className="Rating_icon" src={Rating_icon} alt="rating icon" /> {avgRating} : {sla?.slaString}</h3>
-            <h3>Menu</h3>
-            <ul>
-                {itemCards?.map((res) => <li key={res?.card?.info?.id}>{res?.card?.info?.name} - Rs.{res?.card?.info?.price/100}</li>)}
+        <div className="m-4 p-4">
+            <h1 className="font-bold">{name}</h1>
+            <p className="font-serif">{cuisines?.join(', ')}</p>
+            <div className="mt-4 flex items-center"><h3 className="flex items-center"> <img className="w-4 mr-2" src={Rating_icon} alt="rating icon" /> {avgRating} : {sla?.slaString}</h3>
+            </div>
+            <h3 className="font-semibold mt-4 border-b-2 border-gray-400">Menu</h3>
+            <ul >
+                {itemCards?.map((res) => <li key={res?.card?.info?.id}>{res?.card?.info?.name} - <span className="font-semibold">Rs.{res?.card?.info?.price/100 ||res?.card?.info?.defaultPrice/100} </span> </li>)}
                
                 {/* <li>{itemCards[7].card.info.name}</li>
                 <li>pizza</li> 
