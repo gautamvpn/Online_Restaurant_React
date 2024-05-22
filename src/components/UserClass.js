@@ -22,7 +22,7 @@ class UserClass extends Component{
       this.setState({
         userInfo:json
       })
-      console.log(json)
+      // console.log(json)
     }
 
     

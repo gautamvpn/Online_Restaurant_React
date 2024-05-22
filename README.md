@@ -35,4 +35,10 @@ Footer
  -Contact   
 **/
 
-
+Redux Toolkit (RTK)
+-Install @reduxjs/toolkit and react-redux
+-Build our store
+-Connect our store to our app
+- slice(cartSlice)
+-dispatch action
+-Selector(Reading the data)

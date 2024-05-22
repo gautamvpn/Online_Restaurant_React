@@ -1,13 +1,16 @@
-import ResturantCard from "./ResturantCard";
+import ResturantCard,{WithPromotedLabel} from "./ResturantCard";
 import { resObj } from "../utils/mockData";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useContext } from "react";
 import ShimarUI from "./ShimarUI";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
 const Body = () => {
     let [listOfResturants, setListOfResturants] = useState([]);
     const [filteredResturants, setOfFilteredResturants] = useState([]);
     const [searchText, setSearchText] = useState('');
+
+    const ResturantsCardPromoted = WithPromotedLabel(ResturantCard)
 
     useEffect(() => {
         fetchData();
@@ -19,7 +22,7 @@ const Body = () => {
 
         const json = await data.json();
         // console.log(json)
-        console.log(json.data.cards)
+        // console.log(json.data.cards)
         setListOfResturants(json?.data?.cards)
         setOfFilteredResturants(json?.data?.cards)
     }
@@ -29,6 +32,8 @@ const Body = () => {
     if(onlineStatus === false)  return(
         <div> <h2>Opss!! Please check your internet connection, and try again.</h2></div>
     )
+
+    const {loggedInUser,setUserName} = useContext(UserContext)
 
 
     return listOfResturants.length == 0 ? <ShimarUI /> : (
@@ -67,6 +72,16 @@ const Body = () => {
                     Top Rated Resturants
                 </button>
                 </div>
+
+                <div className="m-4 p-4 flex items-center">
+                <label>UserName</label>
+                 <input className="border border-black p-2"
+                  value={loggedInUser}
+                  onChange={(e)=> setUserName(e.target.value)} />
+                </div>
+
+
+
             </div>
             <div className="flex flex-wrap">
                 {/* {listOfResturants.map((Resturant)=> <ResturantCard key={Resturant.info.id} resData={Resturant}/> ) } */}
@@ -74,10 +89,10 @@ const Body = () => {
                     if (Resturant?.card && Resturant?.card?.card?.info) {
                         {/* console.log(Resturant.card.card); // Log the card object */ }
                         return (
-                           <Link  key={Resturant?.card?.card?.info?.id} to={"/restaurants/"+Resturant?.card?.card?.info?.id}> <ResturantCard
-                               
-                                resData={Resturant?.card?.card}
-                            />
+                           <Link  key={Resturant?.card?.card?.info?.id} to={"/restaurants/"+Resturant?.card?.card?.info?.id}> 
+                           {
+                            Resturant?.card?.card?.info?.avgRating > 4.2 ? (<ResturantsCardPromoted resData={Resturant?.card?.card} />) : (<ResturantCard resData={Resturant?.card?.card} />)
+                           }
                             </Link>
                         );
                     }
