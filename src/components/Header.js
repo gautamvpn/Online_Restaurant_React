@@ -3,13 +3,24 @@ import { cdn_logo } from "../utils/constant";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import UserContext from "../utils/UserContext";
+import { useSelector } from "react-redux";
+
+
 const Header = () => {
   const [btnNameReact, setBtnReact] = useState('login')
   const onlineStatus = useOnlineStatus()
 
   const { loggedInUser } = useContext(UserContext);
 
-  console.log(loggedInUser)
+  // console.log(loggedInUser)
+
+  // for reading the element into the cart can use Selector
+
+  // Selector, this hook gives a access to the store
+  // susbribing to the store using selector
+  const cartItems = useSelector((store)=>store.cart.items)
+  console.log(cartItems)
+
 
 
 
@@ -37,9 +48,7 @@ const Header = () => {
           <li className="px-4">
             <Link to={"/grocery"}>Grocery</Link>
           </li>
-          <li className="px-4">
-            <Link to="cart">Cart</Link>
-          </li>
+          <li className="px-4 font-bold text-lg"> <Link to={"/cart"}>  Cart ({cartItems.length} items) </Link></li>
           <button className="loginBtn" onClick={() => {
             setBtnReact('logout')
           }}>{btnNameReact}</button>
