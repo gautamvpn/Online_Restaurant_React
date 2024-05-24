@@ -4,7 +4,7 @@ import { res_cart } from "../utils/constant";
 
 const ResturantCard = ({ resData }) => {
     // Provide a default empty object for resData.info to avoid destructuring from undefined
-    // console.log(resData.info)
+    // console.log(resData)
     const {loggedInUser} = useContext(UserContext)
     const {
         name = "Unknown Restaurant",
@@ -20,7 +20,7 @@ const ResturantCard = ({ resData }) => {
     const temp_image_url = "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/"
 
     return (
-        <div className="m-4 p-4 w-[250px] bg-gray-100 rounded-lg shadow-lg hover:bg-gray-200">
+        <div data-testid="resCard" className="m-4 p-4 w-[250px] bg-gray-100 rounded-lg shadow-lg hover:bg-gray-200">
             <img className="rounded-lg " src={temp_image_url+cloudinaryImageId} alt={`${name} logo`} />
             {/* <img className="rounded-lg " src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/dlx59kcbntvnlf8igifw" alt={`${name} logo`} /> */}
             <h3 className="font-bold py-2 text-lg">{name}</h3>
